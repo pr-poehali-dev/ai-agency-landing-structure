@@ -1,18 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Icon from "@/components/ui/icon";
-import { useState } from "react";
 
 const Index = () => {
-  const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
-  };
+  const TELEGRAM_BOT_URL = "https://t.me/NikitaTechnology";
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
@@ -33,13 +25,22 @@ const Index = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6">
-              <Button size="lg" className="text-lg px-8 py-6 bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all hover:scale-105">
-                Получить расчёт
-                <Icon name="ArrowRight" className="ml-2" size={20} />
+              <Button 
+                size="lg" 
+                className="text-lg px-8 py-6 bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all hover:scale-105"
+                onClick={() => window.open(TELEGRAM_BOT_URL, '_blank')}
+              >
+                <Icon name="Send" className="mr-2" size={20} />
+                Написать в Telegram
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 py-6 hover:scale-105 transition-all">
-                <Icon name="Play" className="mr-2" size={20} />
-                Смотреть кейсы
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="text-lg px-8 py-6 hover:scale-105 transition-all"
+                onClick={() => window.open(TELEGRAM_BOT_URL, '_blank')}
+              >
+                <Icon name="MessageCircle" className="mr-2" size={20} />
+                Начать диалог
               </Button>
             </div>
 
@@ -445,72 +446,42 @@ const Index = () => {
         <div className="container mx-auto max-w-4xl relative z-10">
           <Card className="border-0 shadow-2xl animate-fade-in">
             <CardContent className="p-8 md:p-12">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-                  Получите расчёт проекта за 24 часа
-                </h2>
-                <p className="text-lg text-muted-foreground">
-                  Оставьте заявку — проанализируем ваш бизнес и предложим оптимальное решение
-                </p>
+              <div className="text-center space-y-8">
+                <div className="space-y-4">
+                  <h2 className="text-3xl md:text-5xl font-heading font-bold">
+                    Готовы начать?
+                  </h2>
+                  <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+                    Напишите нам в Telegram — обсудим ваш проект и предложим оптимальное решение за 24 часа
+                  </p>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+                  <Button 
+                    size="lg" 
+                    className="text-xl px-12 py-8 bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all hover:scale-110 shadow-2xl w-full sm:w-auto"
+                    onClick={() => window.open(TELEGRAM_BOT_URL, '_blank')}
+                  >
+                    <Icon name="Send" className="mr-3" size={24} />
+                    Написать в Telegram
+                  </Button>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8">
+                  <div className="flex items-center justify-center gap-3 text-muted-foreground">
+                    <Icon name="Clock" size={20} className="text-primary" />
+                    <span className="text-sm">Ответим за 1 час</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-3 text-muted-foreground">
+                    <Icon name="Shield" size={20} className="text-primary" />
+                    <span className="text-sm">100% конфиденциально</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-3 text-muted-foreground">
+                    <Icon name="Sparkles" size={20} className="text-primary" />
+                    <span className="text-sm">Бесплатная консультация</span>
+                  </div>
+                </div>
               </div>
-
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-semibold">Ваше имя *</label>
-                    <Input
-                      placeholder="Иван Иванов"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      required
-                      className="h-12"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-semibold">Email *</label>
-                    <Input
-                      type="email"
-                      placeholder="ivan@company.ru"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      required
-                      className="h-12"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold">Телефон *</label>
-                  <Input
-                    type="tel"
-                    placeholder="+7 (999) 123-45-67"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    required
-                    className="h-12"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold">Опишите задачу</label>
-                  <Textarea
-                    placeholder="Расскажите, что хотите автоматизировать или какую проблему решить..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    rows={4}
-                    className="resize-none"
-                  />
-                </div>
-
-                <Button type="submit" size="lg" className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-lg py-6">
-                  Получить расчёт бесплатно
-                  <Icon name="Send" className="ml-2" size={20} />
-                </Button>
-
-                <p className="text-xs text-center text-muted-foreground">
-                  Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
-                </p>
-              </form>
             </CardContent>
           </Card>
         </div>
